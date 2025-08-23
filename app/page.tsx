@@ -1,6 +1,7 @@
 import Preamble from "./Preamble";
 import "./page.css";
 import Works from "./Works";
+import VeiwAllWork from "./VeiwAllWork";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
           <div className="js-fade__slow">
             <Preamble />
             <Works />
+            <VeiwAllWork />
           </div>
         </div>
       </div>

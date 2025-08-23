@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
 import Header from "./Header";
+import Footer from "./Footer";
 
- const camphor = localFont({
+const camphorRegular = localFont({
   src: '../public/fonts/Camphor-W01-Regular.woff2',
-  variable: '--font-camphor'
+  variable: '--font-camphor-regular'
+})
+
+const camphorMedium = localFont({
+  src: '../public/fonts/Camphor-W01-Medium.woff2',
+  variable: '--font-camphor-medium'
+})
+
+const camphorItalic = localFont({
+  src: '../public/fonts/Camphor-W01-Italic.woff2',
+  variable: '--font-camphor-italic'
 })
 
 export const metadata: Metadata = {
@@ -20,9 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`chermayeff ${camphor.variable}`}>
+      <body className={`chermayeff ${camphorRegular.variable} ${camphorMedium.variable} ${camphorItalic.variable}`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

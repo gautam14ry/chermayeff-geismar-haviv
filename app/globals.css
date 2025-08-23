@@ -7,7 +7,7 @@ body {
   margin: 0;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--font-camphor);
+  font-family: var(--font-camphor-regular);
 }
 
 article,
@@ -240,7 +240,7 @@ a:hover {
 
 b,
 strong {
-  font-family: var(--font-camphor);
+  font-family: var(--font-camphor-medium);
   font-weight: 400;
   font-style: normal;
 }
@@ -292,7 +292,7 @@ i {
 
 em,
 i {
-  font-family: var(--font-camphor);
+  font-family: var(--font-camphor-italic);
 }
 
 img {

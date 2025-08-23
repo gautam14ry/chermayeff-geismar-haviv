@@ -8,15 +8,22 @@ interface Props {
     subtitle: string;
     thumbnail: string;
     height: number;
-    width: number
+    width: number;
+    priority: boolean;
 }
 
-const Work = ({ slug, title, subtitle, thumbnail, height, width }: Props) => {
+const Work = ({ slug, title, subtitle, thumbnail, height, width, priority }: Props) => {
     return (
         <div className="workThumbnail">
             <Link href={`/work/project/${slug}`}>
                 <div className="workThumbnail--thumbnail">
-                    <Image src={thumbnail} alt={subtitle || title} width={width} height={height} unoptimized />
+                    <Image
+                        src={thumbnail}
+                        alt={subtitle || title}
+                        width={width} height={height}
+                        unoptimized
+                        priority={priority}
+                    />
                 </div>
 
                 <span className="workThumbnail--projectInformation hasSubtitle">

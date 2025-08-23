@@ -18,10 +18,7 @@ interface Work {
 }
 
 const Works = async () => {
-  const res = await fetch(
-    'https://bpcghheadless.wpenginepowered.com/wp-json/cgh/work/?total=-1&home=true&sort=curated',
-    { cache: 'no-store' }
-  );
+  const res = await fetch('https://bpcghheadless.wpenginepowered.com/wp-json/cgh/work/?total=-1&home=true&sort=curated');
   const works: Work[] = await res.json();
 
   return (
@@ -39,6 +36,7 @@ const Works = async () => {
             thumbnail={thumbnailUrl}
             width={source?.w}
             height={source?.h}
+            priority={index === 0}
           />
         );
       })}
