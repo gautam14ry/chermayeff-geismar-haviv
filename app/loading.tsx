@@ -3,13 +3,18 @@ import Loader from './components/loader/Loader'
 
 const Loading = () => {
   return (
-    <div className="workCollection">
-        <div className="content--container workCollection--container">
-            <div className="content--container">
-                <Loader />
+    <main id="home" className="pageType-workCollection main--loading">
+        <div className="workCollection">
+            <div className="content--container workCollection--container">
+                <div className="preContent">
+                    <div className="waitingForThumbnails"></div>
+                </div>
+                <div className="content--container">
+                    <Loader />
+                </div>
             </div>
         </div>
-    </div>
+    </main>
   )
 }
 

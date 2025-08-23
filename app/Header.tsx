@@ -5,33 +5,67 @@ import Link from "next/link"
 import "./Header.css";
 import { usePathname } from "next/navigation";
 import classNames from 'classnames';
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import logo from '@/public/cgh-logo.svg'
 
 const Header = () => {
     const currentPath = usePathname();
     const [toggleMenu, setToggleMenu] = useState(false);
+    const headerRef = useRef<HTMLElement | null>(null);
 
     const links = [
         { label: 'Work', href: '/work/logos' },
         { label: 'Contact', href: '/contact' }
     ]
 
-    const toggleMenuHandler = () => {
-        setToggleMenu(!toggleMenu);
-        const body = document.querySelector('body');
-        if (!toggleMenu) {
-            body?.classList.add('js-noScroll');
+    // Handle scroll shrink (adds/removes class on body)
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!headerRef.current) return;
+
+            const headerHeight = headerRef.current.offsetHeight;
+            const scrollY = window.scrollY;
+
+            if (scrollY > headerHeight / 4) {
+                document.body.classList.add("js-shrunkNav");
+            } else {
+                document.body.classList.remove("js-shrunkNav");
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    // Handle no-scroll when mobile menu is open
+    useEffect(() => {
+        if (toggleMenu) {
+            document.body.classList.add("js-noScroll");
         } else {
-            body?.classList.remove('js-noScroll');
+            document.body.classList.remove("js-noScroll");
         }
-    }
+    }, [toggleMenu]);
+
+    const toggleMenuHandler = () => {
+        setToggleMenu(prev => !prev);
+    };
 
     return (
-        <header className="siteHeader" data-expanded={toggleMenu}>
+        <header
+            ref={headerRef}
+            className="siteHeader"
+            data-expanded={toggleMenu}
+        >
             <div className="siteHeader--container">
                 <Link className="homeLink" href="/">
-                    <Image src={logo} alt="CGH logo" width={330} height={14} style={{ height: "auto" }} />
+                    <Image
+                        src={logo}
+                        alt="CGH logo"
+                        width={330}
+                        height={14}
+                        style={{ height: "auto" }}
+                        priority 
+                    />
                 </Link>
 
                 <nav>
@@ -47,22 +81,19 @@ const Header = () => {
                     </button>
 
                     <ul className="menu" id="primary-menu">
-                        {
-                            links.map(link =>
-                                <li key={link.href}>
-                                    <Link
-                                        className={classNames({
-                                            'active': link.href == currentPath
-                                        })}
-                                        aria-current="false"
-                                        href={link.href}
-                                        onClick={() => setToggleMenu(false)}
-                                    >
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            )
-                        }
+                        {links.map(link => (
+                            <li key={link.href}>
+                                <Link
+                                    className={classNames({
+                                        'active': link.href === currentPath
+                                    })}
+                                    href={link.href}
+                                    onClick={() => setToggleMenu(false)}
+                                >
+                                    {link.label}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
             </div>
