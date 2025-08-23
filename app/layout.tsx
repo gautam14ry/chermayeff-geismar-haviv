@@ -22,9 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`chermayeff ${camphor.variable}`}>
         <Header />
-        <main>
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );

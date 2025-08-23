@@ -30,7 +30,7 @@ const Header = () => {
         <header className="siteHeader" data-expanded={toggleMenu}>
             <div className="siteHeader--container">
                 <Link className="homeLink" href="/">
-                    <Image src="/cgh-logo.svg" alt="CGH logo" width={330} height={14} />
+                    <Image src="/cgh-logo.svg" alt="CGH logo" width="330" height="14" />
                 </Link>
 
                 <nav>
