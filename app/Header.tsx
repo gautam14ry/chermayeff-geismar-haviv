@@ -6,6 +6,7 @@ import "./Header.css";
 import { usePathname } from "next/navigation";
 import classNames from 'classnames';
 import { useState } from "react";
+import logo from '@/public/cgh-logo.svg'
 
 const Header = () => {
     const currentPath = usePathname();
@@ -30,7 +31,7 @@ const Header = () => {
         <header className="siteHeader" data-expanded={toggleMenu}>
             <div className="siteHeader--container">
                 <Link className="homeLink" href="/">
-                    <Image src="/cgh-logo.svg" alt="CGH logo" width="330" height="14" />
+                    <Image src={logo} alt="CGH logo" />
                 </Link>
 
                 <nav>

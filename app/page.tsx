@@ -1,5 +1,6 @@
 import Preamble from "./Preamble";
 import "./page.css";
+import Works from "./Works";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
           <div className="preContent"></div>
           <div className="js-fade__slow">
             <Preamble />
+            <Works />
           </div>
         </div>
       </div>
