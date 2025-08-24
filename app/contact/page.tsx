@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { createPortal } from "react-dom"
 import emailjs from '@emailjs/browser';
 import { z } from "zod"
@@ -32,12 +32,11 @@ type FormErrors = Partial<Record<keyof ContactFormData, string>>
 const extractFieldErrors = (error: z.ZodError): FormErrors => {
     const errors: FormErrors = {}
 
-    // Access errors using type assertion since ZodError types can vary
-    const errorAny = error as any
-    let errorArray = errorAny.errors || errorAny.issues || []
+    // Access errors using proper typing
+    const errorArray = error.issues || []
 
     if (Array.isArray(errorArray)) {
-        errorArray.forEach((err: any) => {
+        errorArray.forEach((err) => {
             if (err && typeof err === 'object' && err.path && Array.isArray(err.path) && err.path.length > 0) {
                 const fieldName = err.path[0] as keyof ContactFormData
                 if (fieldName && err.message) {
@@ -45,27 +44,7 @@ const extractFieldErrors = (error: z.ZodError): FormErrors => {
                 }
             }
         })
-    } else {
-        // Fallback: try to parse the error message
-        if (error.message) {
-            try {
-                const parsedErrors = JSON.parse(error.message)
-                if (Array.isArray(parsedErrors)) {
-                    parsedErrors.forEach((err: any) => {
-                        if (err.path && Array.isArray(err.path) && err.path.length > 0) {
-                            const fieldName = err.path[0] as keyof ContactFormData
-                            if (err.message) {
-                                errors[fieldName] = err.message
-                            }
-                        }
-                    })
-                }
-            } catch (parseError) {
-                // Silently handle parse errors
-            }
-        }
-    }
-
+    } 
     return errors
 }
 
@@ -100,8 +79,7 @@ const ContactPage = () => {
             return ''
         } catch (error) {
             if (error instanceof z.ZodError) {
-                const errorAny = error as any
-                const errorArray = errorAny.errors || errorAny.issues || []
+                const errorArray = error.issues || []
                 if (Array.isArray(errorArray) && errorArray.length > 0) {
                     return errorArray[0]?.message || `Invalid ${name}`
                 }
@@ -181,7 +159,7 @@ const ContactPage = () => {
                 reply_to: formData.email
             }
 
-            const result = await emailjs.send(
+            await emailjs.send(
                 serviceId,
                 templateId,
                 templateParams,
@@ -213,11 +191,11 @@ const ContactPage = () => {
         setFormErrors({})
     }
 
-    const handleEscapeKey = (e: KeyboardEvent) => {
+    const handleEscapeKey = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Escape' && isPopupOpen) {
             closePopup()
         }
-    }
+    }, [isPopupOpen])
 
     useEffect(() => {
         if (isPopupOpen) {
@@ -231,7 +209,7 @@ const ContactPage = () => {
             document.removeEventListener('keydown', handleEscapeKey)
             document.body.style.overflow = 'unset'
         }
-    }, [isPopupOpen])
+    }, [isPopupOpen, handleEscapeKey])
 
     const renderPopup = () => {
         if (!mounted || !isPopupOpen) return null
@@ -245,7 +223,7 @@ const ContactPage = () => {
                     {submitStatus === 'success' ? (
                         <div className="success-message">
                             <h3>Message sent successfully!</h3>
-                            <p>We'll get back to you soon.</p>
+                            <p>We&apos;ll get back to you soon.</p>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="contact-form" noValidate>
