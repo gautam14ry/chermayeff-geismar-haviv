@@ -25,7 +25,9 @@ const WorkPage = async ({ params }: Props) => {
         <main id={`work/${slug[0]}`} className="pageType-workCollection">
             <div className="workCollection">
                 <div className="content--container workCollection--container">
-                    <PreContent filterType={slug[0]} />
+                    <div className="preContent">
+                        <PreContent filterType={slug[0]} />
+                    </div>
                     <div className="js-fade__slow">
                         <Works type={filterType} sort={sortType} />
                     </div>

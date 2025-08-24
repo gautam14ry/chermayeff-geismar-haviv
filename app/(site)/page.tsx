@@ -1,6 +1,6 @@
 import Preamble from "./Preamble";
 import "./page.css";
-import Works from "./components/works/Works";
+import Works from "../components/works/Works";
 import VeiwAllWork from "./VeiwAllWork";
 
 export default function Home() {

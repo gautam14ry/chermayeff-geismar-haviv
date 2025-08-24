@@ -1,4 +1,4 @@
-import MasonryGrid from '@/app/work/[...slug]/MasonryGrid';
+import MasonryGrid from '@/app/(site)/work/[...slug]/MasonryGrid';
 import Work from './Work';
 import './Works.css';
 

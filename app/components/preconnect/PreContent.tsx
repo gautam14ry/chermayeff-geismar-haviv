@@ -10,7 +10,7 @@ interface Props {
   filterType: string;
 }
 
-const PreContent = ({filterType}: Props) => {
+const PreContent = ({ filterType }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -35,50 +35,48 @@ const PreContent = ({filterType}: Props) => {
   ];
 
   return (
-    <div className="preContent">
-      <section className="pageContent--workFilterAndSort">
-        {/* Label acts as hover toggle */}
-        <span
-          className={classNames({
+    <section className="pageContent--workFilterAndSort">
+      {/* Label acts as hover toggle */}
+      <span
+        className={classNames({
           'filter-toggle': true,
           'active': isOpen
         })}
-          onMouseEnter={() => setIsOpen(true)}
-          onMouseLeave={() => setIsOpen(false)}
-        >
-          {activeFilter}
-        </span>
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+      >
+        {activeFilter}
+      </span>
 
-        {/* Other filter links (exclude active one) */}
-        <div className="filter--otherLinks">
-          {filterLinks
-            .filter((link) => link.label !== activeFilter)
-            .map((link) => (
-              <span key={link.href} onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
-                <Link 
+      {/* Other filter links (exclude active one) */}
+      <div className="filter--otherLinks">
+        {filterLinks
+          .filter((link) => link.label !== activeFilter)
+          .map((link) => (
+            <span key={link.href} onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+              <Link
                 href={link.href}
-                >{link.label}</Link>
-              </span>
-            ))}
-        </div>
+              >{link.label}</Link>
+            </span>
+          ))}
+      </div>
 
-        {/* Sort Options */}
-        <ul className="sort">
-          {sortOptions.map((option) => 
-              <li key={option.href}>
-                <Link
-                  href={option.href}
-                  className={classNames({
-                    'active': pathname === option.href
-                  })}
-                >
-                  {option.label}
-                </Link>
-              </li>
-          )}
-        </ul>
-      </section>
-    </div>
+      {/* Sort Options */}
+      <ul className="sort">
+        {sortOptions.map((option) =>
+          <li key={option.href}>
+            <Link
+              href={option.href}
+              className={classNames({
+                'active': pathname === option.href
+              })}
+            >
+              {option.label}
+            </Link>
+          </li>
+        )}
+      </ul>
+    </section>
   );
 };
 

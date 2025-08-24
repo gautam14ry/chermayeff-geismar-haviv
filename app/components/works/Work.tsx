@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import './Work.css';
 import Image from 'next/image';
 
@@ -15,7 +15,7 @@ interface Props {
 const Work = ({ slug, title, subtitle, thumbnail, height, width, priority }: Props) => {
     return (
         <div className="workThumbnail">
-            <Link href={`/work/project/${slug}`}>
+            {/* <Link href={`/work/project/${slug}`}> */}
                 <div className="workThumbnail--thumbnail">
                     <Image
                         src={thumbnail}
@@ -30,7 +30,7 @@ const Work = ({ slug, title, subtitle, thumbnail, height, width, priority }: Pro
                     <span className="workThumbnail--title">{title}</span>
                     <span className="workThumbnail--subtitle">{subtitle}</span>
                 </span>
-            </Link>
+            {/* </Link> */}
         </div>
     )
 }
