@@ -21,7 +21,7 @@ const camphorItalic = localFont({
 
 export const metadata: Metadata = {
   title: "Chermayeff & Geismar & Haviv",
-  description: "Creators of many of the world’s most iconic and enduring brands, Chermayeff & Geismar & Haviv is an independent design firm specializing in the development of trademarks and identity programs.",
+  description: "Creators of many of the world's most iconic and enduring brands, Chermayeff & Geismar & Haviv is an independent design firm specializing in the development of trademarks and identity programs.",
 };
 
 export default function RootLayout({
