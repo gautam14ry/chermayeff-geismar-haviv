@@ -1,6 +1,6 @@
 import Preamble from "./Preamble";
 import "./page.css";
-import Works from "./Works";
+import Works from "./components/works/Works";
 import VeiwAllWork from "./VeiwAllWork";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
           <div className="preContent"></div>
           <div className="js-fade__slow">
             <Preamble />
-            <Works />
+            <Works home={true}  />
             <VeiwAllWork />
           </div>
         </div>
